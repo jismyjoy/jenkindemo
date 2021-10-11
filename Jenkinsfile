@@ -7,17 +7,18 @@
         stage('Clean') {
             steps {
                 echo 'Cleaning..'
-                sh 'mvn -B -DskipTests clean package'
+                sh 'mvn -B -DskipTests clean'
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing..'
+                sh 'mvn test'
             }
         }
-        stage('Integration tests') {
+        stage('Package') {
             steps {
-                echo 'Run integration test....'
+                echo 'mvn package'
             }
         }
     }

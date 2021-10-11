@@ -11,9 +11,9 @@ pipeline {
                 echo 'Testing..'
             }
         }
-        stage('Deploy') {
+        stage('Integration tests') {
             steps {
-                echo 'Deploying....'
+                echo 'Run integration test....'
             }
         }
     }

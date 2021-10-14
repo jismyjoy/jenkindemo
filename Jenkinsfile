@@ -23,7 +23,15 @@
         }
         stage('Package') {
             steps {
-                echo 'mvn package'
+                echo 'mvn install'
+            }
+            post {
+                success{
+                    bat 'echo "Packaging done"'
+                }
+                failure{
+                    bat 'echo "Packaging failure"'
+                }
             }
         }
 

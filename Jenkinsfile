@@ -4,6 +4,11 @@
   }
     agent any
     stages {
+     stage('Slack message'){
+      steps{
+      slackSend color: '#BADASS', message: 'successfull!!'
+      }
+     }
         stage('Clean') {
             steps {
                 echo 'Cleaning..'
@@ -23,33 +28,8 @@
         }
         stage('Package') {
             steps {
-                echo 'mvn install'
+                echo 'mvn package'
             }
-            post {
-                success{
-                    bat 'echo "Packaging done"'
-                }
-                failure{
-                    bat 'echo "Packaging failure"'
-                }
-            }
-        }
-
-        stage("Deploy to AWS"){
-            steps{
-                 withAWS(credentials:'puneetawscred', region:'us-east-1') {
-                     s3Upload(workingDir:'target', includePathPattern:'**/*.jar', bucket:'my-jenkinsangular1', path:'')
-            }
-            }
-            post {
-                success{
-                    bat 'echo "Uploaded to AWS"'
-                }
-                failure{
-                    bat 'echo "failure"'
-                }
-            }
-        
         }
     }
 }
